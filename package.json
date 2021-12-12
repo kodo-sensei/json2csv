@@ -2,7 +2,7 @@
   "name": "@kodo-sensei/json2csv",
   "version": "1.0.0",
   "description": "Convert JSON to csv",
-  "main": "lib/converter.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "tsc"
