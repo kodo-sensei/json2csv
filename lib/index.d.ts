@@ -1,2 +1,2 @@
-import { convert } from './app/converter';
-export default convert;
+import * as converter from './app/converter';
+export { converter };

@@ -1,6 +1,22 @@
+import { IOptions } from '../interfaces/option.interface';
 /**
  *
- * @param final
+ * @param data
  * @returns
  */
-export declare function convert(final: any[], flatten?: boolean): string | undefined;
+export declare class Json2CSV {
+    /**
+     *
+     * @param data
+     * @param flatten
+     * @returns
+     */
+    static convert(data: any[], options?: IOptions): string | undefined;
+    private keyGenerator;
+    /**
+     *
+     * @param ob
+     * @returns
+     */
+    static flattenObject(ob: any): any;
+}
