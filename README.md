@@ -5,15 +5,15 @@ Requires Node v12 or higher.
 
 ```bash
 # Global so it can be called from anywhere
-$ npm install -g @kodo-sensei/json2csv
+$ npm install -g @lanthanion/json2csv
 # or as a dependency of a project
-$ npm install @kodo-sensei/json2csv --save
+$ npm install @lanthanion/json2csv --save
 ```
 
 ## Usage
 
 ```ts
-import { convert } from '@kodo-sensei/json2csv';
+import { convert } from '@lanthanion/json2csv';
 import * as fs from 'fs';
 
 fs.readFileSync('foo.txt', 'utf8');
