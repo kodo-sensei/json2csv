@@ -16,15 +16,11 @@ export class Json2CSV {
     data: any[],
     options: IOptions = {
       flatten: true,
-      delimiter: '.',
+      delimiter: '/',
     },
   ): string | undefined {
     if (data.length > 0) {
       let fields = Object.keys(data[0]);
-
-      let replacer = (key: any, value: any) => {
-        return value === null ? '' : value;
-      };
 
       data.forEach((row) => {
         const keys = Object.keys(this.flattenObject(row));
@@ -37,7 +33,16 @@ export class Json2CSV {
         row = this.flattenObject(row);
         return Array.from(fields)
           .map((fieldName) => {
-            return JSON.stringify(row[fieldName], replacer);
+            const value = row[fieldName];
+            if (value === null || value === undefined) {
+              return '';
+            } else if (typeof value === 'string') {
+              // Escape any quotes within the string and wrap it in quotes
+              return `${value.replace(/"/g, '')}`;
+            } else {
+              // Just return the value as is, if it's not a string
+              return value;
+            }
           })
           .join(',');
       });
@@ -74,5 +79,40 @@ export class Json2CSV {
       }
     }
     return toReturn;
+  }
+}
+
+export class CSV2Json {
+  public static convert(
+    csv: string,
+    options: IOptions = {
+      delimiter: '/',
+      flatten: true,
+    },
+  ) {
+    const lines = csv.split('\n');
+    const headers = lines[0].split(',').map((h) => h.trim());
+
+    return lines.slice(1).reduce((jsonArray: any[], line: string) => {
+      const data = line.split(',').map((field) => field.trim());
+
+      const obj = headers.reduce((result: any, header: string, index: number) => {
+        const headerParts = header.split(options.delimiter);
+
+        headerParts.reduce((current, part, idx) => {
+          if (idx === headerParts.length - 1) {
+            current[part] = data[index];
+          } else {
+            current[part] = current[part] || {};
+          }
+          return current[part];
+        }, result);
+
+        return result;
+      }, {});
+
+      jsonArray.push(obj);
+      return jsonArray;
+    }, []);
   }
 }

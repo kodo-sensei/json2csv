@@ -1,6 +1,6 @@
 {
   "name": "@lanthanion/json2csv",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Convert JSON to csv",
   "main": "lib/index.js",
   "scripts": {

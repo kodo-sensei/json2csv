@@ -20,3 +20,6 @@ export declare class Json2CSV {
      */
     static flattenObject(ob: any): any;
 }
+export declare class CSV2Json {
+    static convert(csv: string, options?: IOptions): any[];
+}
