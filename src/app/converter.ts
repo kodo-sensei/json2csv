@@ -91,10 +91,10 @@ export class CSV2Json {
     },
   ) {
     const lines = csv.split('\n');
-    const headers = lines[0].split(',').map((h) => h.trim());
+    const headers = lines[0].split(',').map((h) => h.trim().replace(/"/g, ''));
 
     return lines.slice(1).reduce((jsonArray: any[], line: string) => {
-      const data = line.split(',').map((field) => field.trim());
+      const data = line.split(',').map((field) => field.trim().replace(/"/g, '').replace(/\s+/g, ' '));
 
       const obj = headers.reduce((result: any, header: string, index: number) => {
         const headerParts = header.split(options.delimiter);
